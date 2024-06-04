@@ -1,6 +1,7 @@
 {
   "name": "nuxt-blog",
   "version": "1.0.0",
+  "description": "My awesome nuxt fullstack blog",
   "private": true,
   "scripts": {
     "dev": "nuxt",
