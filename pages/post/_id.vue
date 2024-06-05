@@ -31,12 +31,26 @@
       <p>Lorem ipsum, dolor sit amet consectetur adipisicing.</p>
       <p>Lorem ipsum, dolor sit amet consectetur adipisicing.</p>
     </main>
-    <footer></footer>
+    <footer>
+      <!-- Form -->
+
+      <div class="comments" v-if="true">
+        <app-comment 
+          v-for="comment in 4"
+          :key="comment"
+          :comment="comment"
+        />
+      </div>
+      <div class="text-center" v-else>Коментов нема</div>
+    </footer>
   </article>
 </template>
 
 <script>
+import AppComment from '@/components/main/Comment.vue'
+
 export default {
+  components: {AppComment},
   validate({params}) {
     return Boolean(params.id)
   }
