@@ -32,7 +32,10 @@
       <p>Lorem ipsum, dolor sit amet consectetur adipisicing.</p>
     </main>
     <footer>
-      <app-comment-form />
+      <app-comment-form 
+        v-if="canAddComent"
+        @created="createCommentHandler"
+      />
 
       <div class="comments" v-if="true">
         <app-comment 
@@ -52,8 +55,18 @@ import AppCommentForm from '@/components/main/CommentForm.vue'
 
 export default {
   components: {AppComment, AppCommentForm},
+  data() {
+    return {
+      canAddComent: true
+    }
+  },
   validate({params}) {
     return Boolean(params.id)
+  },
+  methods: {
+    createCommentHandler() {
+      this.canAddComent = false
+    }
   }
 }
 </script>
