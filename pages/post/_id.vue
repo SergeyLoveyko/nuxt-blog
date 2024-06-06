@@ -32,7 +32,7 @@
       <p>Lorem ipsum, dolor sit amet consectetur adipisicing.</p>
     </main>
     <footer>
-      <!-- Form -->
+      <app-comment-form />
 
       <div class="comments" v-if="true">
         <app-comment 
@@ -48,9 +48,10 @@
 
 <script>
 import AppComment from '@/components/main/Comment.vue'
+import AppCommentForm from '@/components/main/CommentForm.vue'
 
 export default {
-  components: {AppComment},
+  components: {AppComment, AppCommentForm},
   validate({params}) {
     return Boolean(params.id)
   }
