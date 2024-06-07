@@ -59,9 +59,15 @@ export default {
   mounted() {
     const {message} = this.$route.query
 
-    if (message === 'login') {
-      this.$message.info('Для початку увійдіть у систему')
+    switch(message) {
+      case 'login':
+        this.$message.info('Для початку увійдіть у систему')
+        break
+      case 'logout':
+        this.$message.success('Ви успішно вийшли із системи')
+        break
     }
+    
   },
   methods: {
     onSubmit() {
