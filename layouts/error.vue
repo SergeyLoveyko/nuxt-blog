@@ -2,7 +2,7 @@
   <div class="error-layout">
     <div class="error-content">
       <h1 class="error-title">Помилка 404</h1>
-      <nuxt-link to="/">Back to Home</nuxt-link>
+      <nuxt-link to="/">Повернутися на головну сторінку</nuxt-link>
     </div>
   </div>
 </template>
