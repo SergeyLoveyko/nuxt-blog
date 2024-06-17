@@ -16,11 +16,24 @@
     <el-form-item label="Текст у форматі .md або .html" prop="text">
       <el-input
         type="textarea"
-        v-model.trim="controls.text"
+        v-model="controls.text"
         resize="none"
         :rows="10"
       />
     </el-form-item>
+
+    <el-button class="mb-1" type="success" pain @click="previewDialog = true">
+      Передпрогляд
+    </el-button>
+
+    <el-dialog
+      title="Передпрогляд"
+      :visible.sync="previewDialog"
+    >
+      <div :key="controls.text">
+        <vue-markdown> {{ controls.text }} </vue-markdown>
+      </div>
+    </el-dialog>
 
     <el-form-item>
       <el-button 
@@ -41,6 +54,7 @@ export default {
   middleware: ['admin-auth'],
   data() {
     return {
+      previewDialog: false,
       loading: false,
       controls: {
         title: '',
