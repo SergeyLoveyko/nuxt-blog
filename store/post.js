@@ -40,7 +40,7 @@ export const actions = {
 
       fd.append('title', title)
       fd.append('text', text)
-      fd.append('umage', image, image.name)
+      fd.append('image', image, image.name)
 
       return await new Promise(resolve => {
         setTimeout(() => {
