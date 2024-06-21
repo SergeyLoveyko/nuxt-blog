@@ -66,10 +66,8 @@ export default {
 
             await this.$store.dispatch('auth/createUser', formData)
             this.$message.success('Новий користувач доданий')
-
             this.controls.login = ''
             this.controls.password = ''
-
             this.loading = false
 
           } catch (e) {
