@@ -32,7 +32,7 @@ module.exports.createUser = async (req, res) => {
     res.status(409).json({message: 'Такий логін вже зайнятий'})
   } else {
     const salt = bcrypt.genSaltSync(10)
-    const user =new User({
+    const user = new User({
       login: req.body.login,
       password: bcrypt.hashSync(req.body.password, salt)
     })

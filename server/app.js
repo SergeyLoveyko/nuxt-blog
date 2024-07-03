@@ -11,8 +11,10 @@ const app = express()
 
 mongoose.connect(keys.MONGO_URI)
   .then(() => console.log('MongoDB connected...'))
-  .catch(error => console.log( error ))
+  .catch(error => console.log( 'MongoDB NOT connected...', error ))
 
+
+  
 app.use(passport.initialize())
 passport.use(passportStrategy)
 
