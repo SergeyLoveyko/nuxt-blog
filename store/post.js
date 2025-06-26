@@ -1,20 +1,20 @@
 const posts = [
-  {title: 'Post 1',
+  {title: 'My friends',
     date: new Date(),
-    views: 22,
+    views: 8,
     comments: [1, 2],
     _id: 'id_1'
   },
-  {title: 'Post 2',
+  {title: 'How wonderful',
     date: new Date(),
-    views: 22,
-    comments: [1, 2],
+    views: 3,
+    comments: [1, 2, 3],
     _id: 'id_2'
   },
-  {title: 'Post 3',
+  {title: 'The car is red',
     date: new Date(),
-    views: 22,
-    comments: [1, 2],
+    views: 16,
+    comments: [1],
     _id: 'id_3'
   }
 ]

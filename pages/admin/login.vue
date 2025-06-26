@@ -66,6 +66,9 @@ export default {
       case 'logout':
         this.$message.success('Ви успішно вийшли із системи')
         break
+      case 'session':
+        this.$message.warning('Час сесії минув. Будь ласка, зайдіть по-новому')
+        break
     }
     
   },
