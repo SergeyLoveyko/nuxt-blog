@@ -9,7 +9,7 @@
 
     <el-form-item label="Введіть назву посту" prop="title">
       <el-input
-        v-model.trim="controls.title"
+        v-model="controls.title"
       />
     </el-form-item>
 

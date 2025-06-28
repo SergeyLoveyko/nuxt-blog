@@ -5,17 +5,17 @@ const moment = require('moment')
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {   // request, callback
-    cb(null, path.resolve(_dirname, '../..', 'static'))
+    cb(null, path.resolve(__dirname, '../..', 'static'))
   },
   filename(req, file, cb) {
-    cb(null, `${file.originalname}-${moment().format('DDMMYYYY-HHmmss_SSS')}`)
+    cb(null, `${moment().format('DDMMYYYY-HHmmss_SSS')}-${file.originalname}`)
   }
 })
 
 //  here we must validate any parameters of the files
 //  we will simply validate the file extension
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype = 'img/png' || file.mimetype === 'image/jpeg') {
+  if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg') {
     cb(null, true)
   } else {
     cb(null, false)

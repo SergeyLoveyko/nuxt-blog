@@ -8,10 +8,11 @@ module.exports.create = async (req, res) => {   //  response
   })
 
   try {
-    awaitpost.save()
+
+    await post.save()
     res.status(201).json(post)
   } catch(e) {
-    res.status(500).json(e)
+    res.status(500).json({ message: 'Помилка сервера', error: e.message })
   }
 }
 
