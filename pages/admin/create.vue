@@ -79,7 +79,7 @@ export default {
           { required: true, message: "Назва посту не може бути порожньою", trigger: 'blur' }
         ],
         text: [
-          { required: true, message: "Текст не повинен бути порожнім", trigger: 'blur' }
+          { required: true, message: "Поле опису не може бути порожнім", trigger: 'blur' }
         ]
       }
     }
