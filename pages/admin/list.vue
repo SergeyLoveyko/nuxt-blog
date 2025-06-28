@@ -64,6 +64,7 @@ export default {
   },
   methods: {
     open(id) {
+      console.log( '<<< Click OPEN post >>>' )
       this.$router.push(`/admin/post/${id}`)
     },
     async remove(id) {
@@ -73,6 +74,7 @@ export default {
           cancelButtonText: 'Скасувати',
           type: 'warning'
         })
+        // console.log( id );
         await this.$store.dispatch('post/remove', id)
         this.posts = this.posts.filter(p => p._id !== id)
 

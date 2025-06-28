@@ -7,17 +7,17 @@
     </el-breadcrumb>
 
     <el-form 
-    :model="controls"
-    :rules="rules"
-    ref="form"
-    @submit.native.prevent="onSubmit"
+      :model="controls"
+      :rules="rules"
+      ref="form"
+      @submit.native.prevent="onSubmit"
     >
       <!-- <h2>Увійти до панелі адміністратора</h2> -->
 
       <el-form-item label="Текст у форматі .md або .html" prop="text">
         <el-input
           type="textarea"
-          v-model.trim="controls.text"
+          v-model="controls.text"
           resize="none"
           :rows="10"
         />
@@ -61,9 +61,13 @@ export default {
   validate({params}) {
     return Boolean(params.id) 
   },
-  async asyncData({store, params}) {
-    const post = await store.dispatch('post/fetchAdminById', params.id)
-    return {post}
+  async asyncData({store, params,error}) {
+    try {
+      const post = await store.dispatch('post/fetchAdminById', params.id)
+      return {post}
+    } catch (e) {
+      error({ statusCode: 404, message: 'Пост не знайдено' }) // ← иначе будет пустой алерт
+    }
   },
   data() {
     return {
@@ -78,9 +82,22 @@ export default {
       }
     }
   },
+  mounted() {
+    if (!this.post) {
+      console.warn('❌ post не загружен в mounted')
+    } else {
+      this.controls.text = this.post.text
+    }
+  },
   methods: {
     onSubmit() {
+      if (!this.post?._id) {
+        console.warn('❌ Нет ID поста, отмена обновления')
+        return
+      }
+
       this.$refs.form.validate(async valid => {
+
         if(valid) {
           this.loading = true
 

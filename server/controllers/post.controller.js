@@ -8,7 +8,6 @@ module.exports.create = async (req, res) => {   //  response
   })
 
   try {
-
     await post.save()
     res.status(201).json(post)
   } catch(e) {
@@ -27,11 +26,16 @@ module.exports.getAll = async (req, res) => {
 
 module.exports.getById = async (req, res) => {
   try{
-    (await Post.findById(req.params.id)).populate('comments').exec((error, post) => {
-      res.json(post)
-    })
+    const post = await Post.findById(req.params.id).populate('comments')
+
+    if (!post) {
+      return res.status(404).json({ message: 'Пост не знайдено' })
+    }
+
+    res.json(post)
   } catch(e) {
-    res.status(500).json(e)
+    console.log('>>> [GET BY ID ERROR]', e)
+    res.status(500).json({ message: 'Помилка отримання посту', error: e.message, e })
   }
 }
 
@@ -45,16 +49,18 @@ module.exports.update = async (req, res) => {
     }, {$set}, {new: true})
     res.json(post)
   } catch(e) {
-    res.status(500).json(e)
+    console.log('>>> [UPDATE ERROR]', e)
+    res.status(500).json({ message: 'Ошибка при обновлении поста' }, e)
   }
 }
 
 module.exports.remove = async (req, res) => {
   try{
-    await Post.deleteOne({_id: req.pareams.id})
+    await Post.deleteOne({_id: req.params.id})
     res.json({message: 'Пост видалений'})
   } catch(e) {
-    res.status(500).json(e)
+    console.log('>>> [REMOVE ERROR]', e)
+    res.status(500).json({ message: 'Помилка при видаленні посту' })
   }
 }
 
