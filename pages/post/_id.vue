@@ -2,7 +2,7 @@
   <article class="post">
     <header class="post-header">
       <div class="post-title">
-        <h1>Post title</h1>
+        <h1>{{ post.title }}</h1>
         <nuxt-link to="/">
           <i class="el-icon-back"></i>
           <small>Back</small>
@@ -11,25 +11,22 @@
       <div class="post-info">
         <small>
           <i class="el-icon-time"></i>
-          {{ new Date().toLocaleString() }}
+          {{ new Date(post.date).toLocaleString() }}
         </small>
         <small>
           <i class="el-icon-view"></i>
-          43
+          {{ post.views }}
         </small>
       </div>
       <div class="post-image">
         <img 
-          src="https://beechcraft.txtav.com/-/media/beechcraft/images/aircraft/bonanza/g36/exterior-gallery/bonanza-ground-03-2022.ashx?la=en&h=400&w=800&hash=6032A15F391F22B677DF6A7A6F8D26ED" 
+          :src="post.imageUrl" 
           alt="Post image"
         >
       </div>
     </header>
     <main class="post-content">
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing.</p>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing.</p>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing.</p>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing.</p>
+      <vue-markdown> {{ post.text }} </vue-markdown>
     </main>
     <footer>
       <app-comment-form 
@@ -37,9 +34,9 @@
         @created="createCommentHandler"
       />
 
-      <div class="comments" v-if="true">
+      <div class="comments" v-if="post.comments.length">
         <app-comment 
-          v-for="comment in 4"
+          v-for="comment in post.comments"
           :key="comment"
           :comment="comment"
         />
@@ -55,6 +52,13 @@ import AppCommentForm from '@/components/main/CommentForm.vue'
 
 export default {
   components: {AppComment, AppCommentForm},
+  async asyncData({store, params}) {
+    const post = await store.dispatch('post/fetchById', params.id)
+    await store.dispatch('post/addView', post)
+    return {
+      post: {...post, views: ++post.views}
+    }
+  },
   data() {
     return {
       canAddComent: true

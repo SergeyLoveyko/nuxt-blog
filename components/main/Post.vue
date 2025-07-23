@@ -5,17 +5,17 @@
     :body-style="{padding: 0}"
   >
     <header class="post-header" slot="header">
-      <h3>Post title</h3>
+      <h3>{{ post.title }}</h3>
 
       <small>
         <i class="el-icon-time"></i>
-        {{ new Date().toLocaleString() }}
+        {{ new Date(post.date).toLocaleString() }}
       </small>
     </header>
     <div class="post-body">
       <img 
         class="post-img"
-        src="https://beechcraft.txtav.com/-/media/beechcraft/images/aircraft/bonanza/g36/exterior-gallery/bonanza-ground-03-2022.ashx?la=en&h=400&w=800&hash=6032A15F391F22B677DF6A7A6F8D26ED"
+        :src="post.imageUrl"
         alt="post image"
       >
     </div>
@@ -25,7 +25,7 @@
       <span>
         <i class="el-icon-postcard"></i>
 
-        12
+        {{ post.comments.length }}
       </span>
     </footer>
   </el-card>
@@ -33,9 +33,15 @@
 
 <script>
 export default {
+  props: {
+    post: {
+      type: Object,
+      required: true
+    }
+  },
   methods: {
     openPost() {
-      const id = 'test-id'
+      const id = this.post._id
       this.$router.push(`/post/${id}`)
     }
   }
